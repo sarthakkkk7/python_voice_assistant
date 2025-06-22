@@ -5,4 +5,4 @@ wikipedia
 webbrowser
 os
 requests
-load_dotenv()
+dotenv

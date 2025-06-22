@@ -4,6 +4,46 @@ import speech_recognition as sr
 import wikipedia
 import webbrowser
 import os
+import requests
+from dotenv import load_dotenv
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
+
+#function to get weather information
+def get_weather(city):
+    url= f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    res=requests.get(url)
+    if res.status_code == 200:
+        data=res.json()
+        temp= data['main']['temp']
+        description = data['weather'][0]['description']
+        emoji = get_weather_emoji(description)
+
+        response = f"The weather in {city} is {description} {emoji} with a temperature of {temp}°C."
+        print(response)
+        speak(response)
+    else:
+        speak("Sorry, I couldn't fetch the weather for that location.")
+#function to return emoji based on weather description
+def get_weather_emoji(description):
+ desc = description.lower()
+ if "clear" in desc:
+  return "☀️"
+ elif "cloud" in desc:
+  return "☁️"
+ elif "rain" in desc:
+  return "🌧️"
+ elif "thunder" in desc:
+  return "⛈️"
+ elif "snow" in desc:
+  return "❄️"
+ elif "mist" in desc or "fog" in desc:
+  return "🌫️"
+ elif "drizzle" in desc:
+  return "🌦️"
+ else:
+  return "🌡️"
 
 
 engine = pyttsx3.init()
@@ -104,6 +144,12 @@ if __name__ == "__main__":
          elif 'open vs code' in query:
              codepath="C:\\Users\\Sarthak\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
              os.startfile(codepath)
+         elif "weather" in query:
+             speak("Sure, for which city?")
+             city = takeCommand()
+             get_weather(city)
+
+                 
          else:
                 speak("I am sorry, I cannot help you with that. Please try something else.")
 

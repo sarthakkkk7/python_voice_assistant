@@ -4,3 +4,5 @@ speech_recognition
 wikipedia
 webbrowser
 os
+requests
+load_dotenv()

@@ -2,7 +2,11 @@
 
 This is a Python-based voice assistant that responds to your spoken commands and performs various tasks like opening websites, searching Wikipedia, telling the time, launching applications, and more.
 
-You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Friday)** — giving it a more personalized and fun interaction experience!
+You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Friday)** — giving it a more personalized and fun interaction experience! The names for Male and Female assistant are inspired from Tony Stark's AI assistants in Marvel Comics/ Cinematic Universe.
+
+![IronManTonyStarkGIF](https://github.com/user-attachments/assets/3338ba74-b7c7-4d6d-ab26-7cf2e461bfa0)
+
+
 
 ---
 
@@ -11,6 +15,7 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
 - 🎙️ **Voice Input**: Uses your microphone to take voice commands.
 - 🧠 **Voice Output**: Responds to you with voice using `pyttsx3`.
 - 📖 **Wikipedia Search**: Asks and reads out summaries.
+- 🌦️ **Weather Updates**: Ask your assistant "What's the weather in Mumbai?" and get real-time weather info (uses OpenWeatherMap API + `.env` for key management).
 - 🌐 **Open Websites**:
   - YouTube
   - Google
@@ -19,6 +24,12 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
 - 🧑‍🚀 **Voice Selection**: Choose between Male (Jarvis) and Female (Friday)
+
+📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and put it inside `.env` like:
+```
+API_KEY=your_api_key_here
+```
+
 
 ---
 
@@ -61,7 +72,6 @@ The assistant will greet you based on your voice choice and respond accordingly.
 
 ## 💡 Future Ideas
 
-- Weather updates using OpenWeatherMap API  
 - Joke or quote of the day  
 - Email automation  
 - News headlines reader  
@@ -77,4 +87,6 @@ The assistant will greet you based on your voice choice and respond accordingly.
 
 ---
 
-> 🔊 “I am always listening, boss.” – Jarvis
+> 🔊 “I am always listening, boss.” – Jarvis/Friday
+
+![JarvisTellHerIMissHerGIF](https://github.com/user-attachments/assets/eb76a41d-4949-4438-b179-94c94fccf6cc)

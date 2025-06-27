@@ -117,8 +117,7 @@ def takeCommand():
     
 if __name__ == "__main__":
     wish_me()
-    #while True:
-    if 1:
+    while True:
          query= takeCommand().lower()
          
          #Logic for executing tasks based on user query
@@ -129,6 +128,7 @@ if __name__ == "__main__":
              speak("According to Wikipedia")
              print(results)
              speak(results)
+             
 
          elif 'open youtube' in query:
              webbrowser.open("youtube.com") 
@@ -148,15 +148,27 @@ if __name__ == "__main__":
              speak("Sure, for which city?")
              city = takeCommand()
              get_weather(city)
-
-                 
+         elif 'joke' in query:
+            speak("Sure, let me tell you a joke.")
+            joke_response = requests.get("https://official-joke-api.appspot.com/random_joke")
+            if joke_response.status_code == 200:
+                joke_data = joke_response.json()
+                joke = f"{joke_data['setup']} {joke_data['punchline']}"
+                print(joke)
+                speak(joke)
+         elif 'motivate me' in query or 'motivation' in query:
+            speak("Sure, here is a motivational quote for you.")
+            quote_res = requests.get("https://zenquotes.io/api/random")
+            if quote_res.status_code == 200:
+                quote_data = quote_res.json()[0]
+                quote = f"{quote_data['q']} - {quote_data['a']}"
+                print(quote)
+                speak(quote)
+         elif 'exit' in query or 'quit' in query or 'stop' in query:
+             speak("Goodbye! Have a great day!")
+             print("Goodbye! Have a great day!")
+             break
+          
          else:
                 speak("I am sorry, I cannot help you with that. Please try something else.")
-
-
-             
-
-
-
-             
 

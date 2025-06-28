@@ -8,12 +8,12 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv()
-API_KEY = os.getenv("API_KEY")
-news_api_key = os.getenv("news_api_key")
+Weather_API_KEY = os.getenv("Weather_API_KEY")
+News_API_KEY = os.getenv("News_API_KEY")
 
 #function to get weather information
 def get_weather(city):
-    url= f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+    url= f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={Weather_API_KEY}&units=metric"
     res=requests.get(url)
     if res.status_code == 200:
         data=res.json()
@@ -160,7 +160,7 @@ if __name__ == "__main__":
          #Getting news     
          elif 'news' in query:
             speak ("Sure, let me get the latest news for you.")
-            news_url=f'https://newsapi.org/v2/everything?q={query}&apiKey={news_api_key}'
+            news_url=f'https://newsapi.org/v2/everything?q={query}&apiKey={News_API_KEY}'
             news_response = requests.get(news_url)
             speak("Here are the top news headlines.")
             if news_response.status_code == 200:
@@ -172,10 +172,9 @@ if __name__ == "__main__":
                         description = article['description']
                         speak(f"Title: {title}")
                         if description:
-                            speak(f"Description: {description}")
+                         speak(f"Description: {description}")
                         print(f"Title: {title}")
-                        if description:
-                            print(f"Description: {description}")
+                        print(f"Description: {description}")
         
          #To get jokes or motivational quotes
          elif 'joke' in query:
@@ -197,7 +196,7 @@ if __name__ == "__main__":
                 speak(quote)
 
          #To exit the program       
-         elif 'quit' in query or 'exit' in query or 'stop' in query:
+         elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
              speak("Thank you! Have a great day!")
              print("Thank you! Have a great day!")
              break

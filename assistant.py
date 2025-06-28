@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 API_KEY = os.getenv("API_KEY")
+news_api_key = os.getenv("news_api_key")
 
 #function to get weather information
 def get_weather(city):
@@ -121,6 +122,7 @@ if __name__ == "__main__":
          query= takeCommand().lower()
          
          #Logic for executing tasks based on user query
+         #Searching Wikipedia
          if 'wikipedia' in query:
              speak("Searching Wikipedia....")
              query=query.replace("wikipedia", "")
@@ -129,7 +131,7 @@ if __name__ == "__main__":
              print(results)
              speak(results)
              
-
+         #Opening websites
          elif 'open youtube' in query:
              webbrowser.open("youtube.com") 
          elif 'open google' in query:
@@ -138,16 +140,44 @@ if __name__ == "__main__":
              webbrowser.open("spotify.com") 
          elif 'open codedex' in query:
              webbrowser.open("codedex.io") 
+
+         #Getting the current time
          elif 'the time' in query:
              strTime=datetime.datetime.now().strftime("%H:%M:%S")
              speak(f"Master, the time is {strTime}")
+
+         #Opening application
          elif 'open vs code' in query:
              codepath="C:\\Users\\Sarthak\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
              os.startfile(codepath)
+
+         #Getting weather information     
          elif "weather" in query:
              speak("Sure, for which city?")
              city = takeCommand()
              get_weather(city)
+
+         #Getting news     
+         elif 'news' in query:
+            speak ("Sure, let me get the latest news for you.")
+            news_url=f'https://newsapi.org/v2/everything?q={query}&apiKey={news_api_key}'
+            news_response = requests.get(news_url)
+            speak("Here are the top news headlines.")
+            if news_response.status_code == 200:
+                news_data = news_response.json()
+                articles = news_data['articles']
+                if articles:
+                    for article in articles[:5]:
+                        title = article['title']
+                        description = article['description']
+                        speak(f"Title: {title}")
+                        if description:
+                            speak(f"Description: {description}")
+                        print(f"Title: {title}")
+                        if description:
+                            print(f"Description: {description}")
+        
+         #To get jokes or motivational quotes
          elif 'joke' in query:
             speak("Sure, let me tell you a joke.")
             joke_response = requests.get("https://official-joke-api.appspot.com/random_joke")
@@ -156,6 +186,7 @@ if __name__ == "__main__":
                 joke = f"{joke_data['setup']} {joke_data['punchline']}"
                 print(joke)
                 speak(joke)
+
          elif 'motivate me' in query or 'motivation' in query:
             speak("Sure, here is a motivational quote for you.")
             quote_res = requests.get("https://zenquotes.io/api/random")
@@ -164,9 +195,11 @@ if __name__ == "__main__":
                 quote = f"{quote_data['q']} - {quote_data['a']}"
                 print(quote)
                 speak(quote)
-         elif 'exit' in query or 'quit' in query or 'stop' in query:
-             speak("Goodbye! Have a great day!")
-             print("Goodbye! Have a great day!")
+
+         #To exit the program       
+         elif 'quit' in query or 'exit' in query or 'stop' in query:
+             speak("Thank you! Have a great day!")
+             print("Thank you! Have a great day!")
              break
           
          else:

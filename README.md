@@ -23,12 +23,16 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Codedex
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
-- 🎙️ **Tells Jokes & Motivational Quotes**
+- 🃏 **Tells Jokes & Motivational Quotes**
+- 📰 **Tells News headlines**: Ask assistant "Tell me today's news" and get upto 5 news headlines along with their short description (uses News API + `.env` for key management).
 - 🧑‍🚀 **Voice Selection**: Choose between Male (Jarvis) and Female (Friday)
 
-📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and put it inside `.env` like:
+📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and for News updates feature get your API key from https://newsapi.org/
+
+Place those inside `.env` like:
 ```
-API_KEY=your_api_key_here
+Weather_API_KEY=your_weatherapi_key_here
+News_API_KEY=your_newsapi_key_here
 ```
 
 
@@ -74,7 +78,6 @@ The assistant will greet you based on your voice choice and respond accordingly.
 ## 💡 Future Ideas
 
 - Email automation  
-- News headlines reader  
 - Remember notes (simple to-do feature)  
 
 ---

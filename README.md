@@ -23,6 +23,7 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Codedex
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
+- 🎙️ **Tells Jokes & Motivational Quotes**
 - 🧑‍🚀 **Voice Selection**: Choose between Male (Jarvis) and Female (Friday)
 
 📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and put it inside `.env` like:
@@ -72,7 +73,6 @@ The assistant will greet you based on your voice choice and respond accordingly.
 
 ## 💡 Future Ideas
 
-- Joke or quote of the day  
 - Email automation  
 - News headlines reader  
 - Remember notes (simple to-do feature)  

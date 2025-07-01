@@ -11,42 +11,6 @@ load_dotenv()
 Weather_API_KEY = os.getenv("Weather_API_KEY")
 News_API_KEY = os.getenv("News_API_KEY")
 
-#function to get weather information
-def get_weather(city):
-    url= f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={Weather_API_KEY}&units=metric"
-    res=requests.get(url)
-    if res.status_code == 200:
-        data=res.json()
-        temp= data['main']['temp']
-        description = data['weather'][0]['description']
-        emoji = get_weather_emoji(description)
-
-        response = f"The weather in {city} is {description} {emoji} with a temperature of {temp}°C."
-        print(response)
-        speak(response)
-    else:
-        speak("Sorry, I couldn't fetch the weather for that location.")
-#function to return emoji based on weather description
-def get_weather_emoji(description):
- desc = description.lower()
- if "clear" in desc:
-  return "☀️"
- elif "cloud" in desc:
-  return "☁️"
- elif "rain" in desc:
-  return "🌧️"
- elif "thunder" in desc:
-  return "⛈️"
- elif "snow" in desc:
-  return "❄️"
- elif "mist" in desc or "fog" in desc:
-  return "🌫️"
- elif "drizzle" in desc:
-  return "🌦️"
- else:
-  return "🌡️"
-
-
 engine = pyttsx3.init()
 def speak(text):
     engine.say(text)
@@ -82,7 +46,60 @@ def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+#function to get weather information
+def get_weather(city):
+    url= f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={Weather_API_KEY}&units=metric"
+    res=requests.get(url)
+    if res.status_code == 200:
+        data=res.json()
+        temp= data['main']['temp']
+        description = data['weather'][0]['description']
+        emoji = get_weather_emoji(description)
 
+        response = f"The weather in {city} is {description} {emoji} with a temperature of {temp}°C."
+        print(response)
+        speak(response)
+    else:
+        speak("Sorry, I couldn't fetch the weather for that location.")
+#function to return emoji based on weather description
+def get_weather_emoji(description):
+ desc = description.lower()
+ if "clear" in desc:
+  return "☀️"
+ elif "cloud" in desc:
+  return "☁️"
+ elif "rain" in desc:
+  return "🌧️"
+ elif "thunder" in desc:
+  return "⛈️"
+ elif "snow" in desc:
+  return "❄️"
+ elif "mist" in desc or "fog" in desc:
+  return "🌫️"
+ elif "drizzle" in desc:
+  return "🌦️"
+ else:
+  return "🌡️"
+
+#function to get news headlines
+def get_news(query='latest'):
+    speak("Sure, let me get the latest news for you.")
+    news_url = f'https://newsapi.org/v2/everything?q={query}&apiKey={News_API_KEY}'
+    news_response = requests.get(news_url)
+    if news_response.status_code == 200:
+        news_data = news_response.json()
+        articles = news_data['articles']
+        if articles:
+            for article in articles[:5]:
+                title = article['title']
+                description = article['description']
+                speak(f"Title: {title}")
+                if description:
+                    speak(f"Description: {description}")
+                    print(f"Title: {title}")
+                    print(f"Description: {description}")
+
+# function to wish the user based on the time of day
 def wish_me():
     hour=int(datetime.datetime.now().hour)
     if hour>=0 and hour<12:
@@ -99,11 +116,10 @@ def wish_me():
 
 def takeCommand():
     #Takes i/p from user using microphone
-
     r=sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold=1
+        r.pause_threshold= 1.2 # Adjusted pause threshold for better recognition
         audio=r.listen(source)
 
     try:
@@ -159,22 +175,7 @@ if __name__ == "__main__":
 
          #Getting news     
          elif 'news' in query:
-            speak ("Sure, let me get the latest news for you.")
-            news_url=f'https://newsapi.org/v2/everything?q={query}&apiKey={News_API_KEY}'
-            news_response = requests.get(news_url)
-            speak("Here are the top news headlines.")
-            if news_response.status_code == 200:
-                news_data = news_response.json()
-                articles = news_data['articles']
-                if articles:
-                    for article in articles[:5]:
-                        title = article['title']
-                        description = article['description']
-                        speak(f"Title: {title}")
-                        if description:
-                         speak(f"Description: {description}")
-                        print(f"Title: {title}")
-                        print(f"Description: {description}")
+            get_news()
         
          #To get jokes or motivational quotes
          elif 'joke' in query:
@@ -194,8 +195,36 @@ if __name__ == "__main__":
                 quote = f"{quote_data['q']} - {quote_data['a']}"
                 print(quote)
                 speak(quote)
-
-         #To exit the program       
+         
+         #To take notes
+         elif 'note' in query:
+            speak("Sure, what would you like to note down?")
+            note = takeCommand()
+            with open("notes.txt", "a") as file:
+                file.write(note + "\n")
+            speak("Note has been saved.")
+            speak("Would you like to rename the file?")
+            rename_choice = takeCommand().lower()
+            if 'yes' in rename_choice:
+                speak("Please provide the new name for the file.")
+                new_name = takeCommand()
+                os.rename("notes.txt", f"{new_name}.txt")
+                speak(f"File has been renamed to {new_name}.txt")
+            else:
+                speak("Note saved without renaming the file.")
+            speak("Would you like to read the notes?")
+            read_choice = takeCommand().lower()
+            if 'yes' in read_choice:
+                speak("Here are your notes:")
+                with open("notes.txt", "r") as file:
+                    notes = file.read()
+                    print(notes)
+                    speak(notes)
+            else:
+                speak("Okay, I won't read the notes.")
+                print("Okay, I won't read the notes.")
+               
+         #To exit the program
          elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
              speak("Thank you! Have a great day!")
              print("Thank you! Have a great day!")

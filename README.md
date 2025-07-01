@@ -25,6 +25,7 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
 - ⚙️ **Opens Applications** (like VS Code)
 - 🃏 **Tells Jokes & Motivational Quotes**
 - 📰 **Tells News headlines**: Ask assistant "Tell me today's news" and get upto 5 news headlines along with their short description (uses News API + `.env` for key management).
+- 📝 **Makes Notes**: A speech-driven notes system which saves the notes from user's speech in a  `notes.txt ` file, while also allowing user to rename those `.txt ` files by their choice and similarly read those notes based on user's choice again.
 - 🧑‍🚀 **Voice Selection**: Choose between Male (Jarvis) and Female (Friday)
 
 📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and for News updates feature get your API key from https://newsapi.org/
@@ -49,7 +50,7 @@ pip install -r requirements.txt
 
 1. Run the script:
 ```
-python jarvis.py
+python assistant.py
 ```
 
 2. Choose your assistant:
@@ -77,8 +78,11 @@ The assistant will greet you based on your voice choice and respond accordingly.
 
 ## 💡 Future Ideas
 
-- Email automation  
-- Remember notes (simple to-do feature)  
+- Email automation
+- Reminders & Alarms Feature
+- To-Do List with Voice
+- Local File Search
+- Play Music
 
 ---
 

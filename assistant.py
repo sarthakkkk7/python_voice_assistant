@@ -146,7 +146,7 @@ if __name__ == "__main__":
              speak("According to Wikipedia")
              print(results)
              speak(results)
-             
+
          #Opening websites
          elif 'open youtube' in query:
              webbrowser.open("youtube.com") 
@@ -223,13 +223,50 @@ if __name__ == "__main__":
             else:
                 speak("Okay, I won't read the notes.")
                 print("Okay, I won't read the notes.")
-               
-         #To exit the program
-         elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
-             speak("Thank you! Have a great day!")
-             print("Thank you! Have a great day!")
-             break
-          
-         else:
-                speak("I am sorry, I cannot help you with that. Please try something else.")
 
+         # To-Do List Feature
+         elif 'add task' in query:
+          speak("What task would you like to add?")
+          task = takeCommand().capitalize()
+          with open("todo.txt", "a") as file:
+           file.write(task + "\n")
+           speak(f"I've added the task: {task}")
+           print(f"Added task: {task}")
+
+         elif 'show tasks' in query or 'read my tasks' in query:
+          if os.path.exists("todo.txt"):
+           with open("todo.txt", "r") as file:
+            tasks = file.readlines()
+            if tasks:
+             speak("Here are your tasks:")
+            for idx, task in enumerate(tasks, 1):
+                speak(f"Task {idx}: {task.strip()}")
+                print(f"{idx}. {task.strip()}")
+            else:
+             speak("Your to-do list is empty.")
+             print("No tasks found.")
+         
+         elif 'remove task' in query or 'delete task' in query:
+          speak("What task would you like to remove?")
+          task_to_remove = takeCommand().capitalize()
+          if os.path.exists("todo.txt"):
+           with open("todo.txt", "r") as file:
+            tasks = file.readlines()
+           with open("todo.txt", "w") as file:
+            for task in tasks:
+             if task.strip() != task_to_remove:
+              file.write(task)
+             else:
+              speak(f"I've removed the task: {task_to_remove}")
+              print(f"Removed task: {task_to_remove}")
+          else:
+           speak("Your to-do list is empty.")
+           print("No tasks found.")
+           
+         # To exit the program
+         elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
+          speak("Thank you! Have a great day!")
+          print("Thank you! Have a great day!")
+          break 
+         else:
+          speak("I am sorry, I cannot help you with that. Please try something else.")

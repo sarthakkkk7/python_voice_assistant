@@ -156,6 +156,10 @@ if __name__ == "__main__":
              webbrowser.open("spotify.com") 
          elif 'open codedex' in query:
              webbrowser.open("codedex.io") 
+         elif 'open github' in query:
+                webbrowser.open("github.com")
+         elif 'open linkedin' in query:
+                webbrowser.open("linkedin.com")    
 
          #Getting the current time
          elif 'the time' in query:

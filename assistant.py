@@ -160,7 +160,11 @@ if __name__ == "__main__":
                 webbrowser.open("github.com")
          elif 'open linkedin' in query:
                 webbrowser.open("linkedin.com")    
-
+         elif 'open google classroom' in query:
+                webbrowser.open("classroom.google.com")
+         elif 'open chatgpt' in query:
+                webbrowser.open("chat.openai.com")
+                            
          #Getting the current time
          elif 'the time' in query:
              strTime=datetime.datetime.now().strftime("%H:%M:%S")

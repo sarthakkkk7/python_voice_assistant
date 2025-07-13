@@ -23,6 +23,8 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Codedex
   - Github
   - LinkedIn
+  - Google Classroom
+  - ChatGpt
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
 - 🃏 **Tells Jokes & Motivational Quotes**

@@ -21,6 +21,8 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Google
   - Spotify
   - Codedex
+  - Github
+  - LinkedIn
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
 - 🃏 **Tells Jokes & Motivational Quotes**

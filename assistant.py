@@ -164,7 +164,7 @@ if __name__ == "__main__":
                 webbrowser.open("classroom.google.com")
          elif 'open chatgpt' in query:
                 webbrowser.open("chat.openai.com")
-                            
+         
          #Getting the current time
          elif 'the time' in query:
              strTime=datetime.datetime.now().strftime("%H:%M:%S")

@@ -24,7 +24,7 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Github
   - LinkedIn
   - Google Classroom
-  - ChatGpt
+  - ChatGPT 
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
 - 🃏 **Tells Jokes & Motivational Quotes**
@@ -84,6 +84,9 @@ The assistant will greet you based on your voice choice and respond accordingly.
 ## 💡 Future Ideas
 
 - Email automation
+- Games
+- Currency convertor
+- Unit convertor
 - Reminders & Alarms Feature
 - Local File Search
 - Play Music

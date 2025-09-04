@@ -31,6 +31,7 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
 - 📰 **Tells News headlines**: Ask assistant "Tell me today's news" and get upto 5 news headlines along with their short description (uses News API + `.env` for key management).
 - 📝 **Makes Notes**: A speech-driven notes system which saves the notes from user's speech in a  `notes.txt ` file, while also allowing user to rename those `.txt ` files by their choice and similarly read those notes based on user's choice again.
 - 📃 **To-Do List with Voice** : Allows user to create and maintain a To-Do list by adding, reading and removing tasks from a  `todo.txt ` file.
+- 🎮 **Play Game** : Launches Slowroads.io game directly through command. (More games to be added in further updates)
 - 🧑‍🚀 **Voice Selection**: Choose between Male (Jarvis) and Female (Friday)
 
 📌 *Note:* For Weather updates feature get your API key from https://openweathermap.org/api and for News updates feature get your API key from https://newsapi.org/

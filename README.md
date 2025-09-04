@@ -85,7 +85,6 @@ The assistant will greet you based on your voice choice and respond accordingly.
 ## 💡 Future Ideas
 
 - Email automation
-- Games
 - Currency convertor
 - Unit convertor
 - Reminders & Alarms Feature

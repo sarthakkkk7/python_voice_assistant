@@ -270,7 +270,12 @@ if __name__ == "__main__":
           else:
            speak("Your to-do list is empty.")
            print("No tasks found.")
-           
+
+         # To Play Game
+         elif 'play game' in query or 'I want to play a game' in query or "Let's play a game" in query:
+             speak("Sure! Launching Slowroads game.")
+             webbrowser.open("https://slowroads.io/")
+
          # To exit the program
          elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
           speak("Thank you! Have a great day!")

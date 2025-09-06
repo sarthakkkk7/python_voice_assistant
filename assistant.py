@@ -99,6 +99,29 @@ def get_news(query='latest'):
                     print(f"Title: {title}")
                     print(f"Description: {description}")
 
+#function to launch games
+def launch_game(game_choice):
+   speak("Which game would you like to play?")
+   print("Which game would you like to play?")
+   print("1. Slowroads")
+   speak("Option one - Slowroads.")
+   print("2. Sort the Court")
+   speak("Option two - Sort the Court.")
+   print("3. Tough Love Arena")
+   speak("Option three - Tough Love Arena.")
+   game_choice= input("Enter 1, 2 or 3: ")
+   if game_choice == "1":
+     speak("Launching Slowroads.")
+     webbrowser.open("https://slowroads.io/")
+   elif game_choice == "2":
+     speak("Launching Sort the Court.")
+     webbrowser.open("https://graebor.itch.io/sort-the-court")
+   elif game_choice == "3":
+     speak("Launching Tough Love Arena.")
+     webbrowser.open("https://toughlovearena.com/")
+   else:
+     speak("Invalid choice. Unavailable game.")
+
 # function to wish the user based on the time of day
 def wish_me():
     hour=int(datetime.datetime.now().hour)
@@ -273,8 +296,7 @@ if __name__ == "__main__":
 
          # To Play Game
          elif 'play game' in query or 'I want to play a game' in query or "Let's play a game" in query:
-             speak("Sure! Launching Slowroads game.")
-             webbrowser.open("https://slowroads.io/")
+             launch_game(query)
 
          # To exit the program
          elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:

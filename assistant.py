@@ -295,11 +295,11 @@ if __name__ == "__main__":
            print("No tasks found.")
 
          # To Play Game
-         elif 'play game' in query or 'I want to play a game' in query or "Let's play a game" in query:
+         elif 'play game' in query or 'I want to play a game' in query or "Let's play a game" in query or 'game' in query:
              launch_game(query)
 
          # To exit the program
-         elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query:
+         elif 'quit' in query or 'bye' in query or 'exit' in query or 'stop' in query or 'goodbye' in query:
           speak("Thank you! Have a great day!")
           print("Thank you! Have a great day!")
           break 

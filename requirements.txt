@@ -6,3 +6,4 @@ webbrowser
 os
 requests
 dotenv
+forex-python

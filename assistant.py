@@ -1,11 +1,19 @@
 import pyttsx3
 import datetime
-import speech_recognition as sr
+try:
+    import speech_recognition as sr
+    HAS_SPEECH_RECOGNITION = True
+except Exception:
+    sr = None
+    HAS_SPEECH_RECOGNITION = False
 import wikipedia
 import webbrowser
 import os
 import requests
 from dotenv import load_dotenv
+import re
+
+from currency_converter import convert_currency, convert_bitcoin
 
 load_dotenv()
 Weather_API_KEY = os.getenv("Weather_API_KEY")
@@ -81,6 +89,26 @@ def get_weather_emoji(description):
  else:
   return "🌡️"
 
+
+# helper to parse a spoken amount into a float
+def parse_amount(text):
+    if not text:
+        return None
+    txt = text.replace(',', '').strip().lower()
+    if txt == "none":
+        return None
+    try:
+        return float(txt)
+    except Exception:
+        # try to extract the first number found in the spoken text
+        m = re.search(r"(\d+(?:\.\d+)?)", txt)
+        if m:
+            try:
+                return float(m.group(1))
+            except Exception:
+                return None
+    return None
+
 #function to get news headlines
 def get_news(query='latest'):
     speak("Sure, let me get the latest news for you.")
@@ -138,22 +166,25 @@ def wish_me():
      speak("I am Friday, your personal assistant. How can I help you today?")     
 
 def takeCommand():
-    #Takes i/p from user using microphone
-    r=sr.Recognizer()
+    # Takes i/p from user using microphone if available, otherwise falls back to text input
+    if not HAS_SPEECH_RECOGNITION:
+        print("SpeechRecognition not available — falling back to text input.")
+        return input("Type your command: ")
+
+    r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold= 1.2 # Adjusted pause threshold for better recognition
-        audio=r.listen(source)
+        r.pause_threshold = 1.2  # Adjusted pause threshold for better recognition
+        audio = r.listen(source)
 
     try:
         print("Recognizing...")
-        query=r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")   
-
-    except Exception as e:
+        query = r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}\n")
+    except Exception:
         print("Sorry, I did not understand that. Please say it again.")
-        return "None"   
-    return query  
+        return "None"
+    return query
     
 if __name__ == "__main__":
     wish_me()
@@ -187,7 +218,8 @@ if __name__ == "__main__":
                 webbrowser.open("classroom.google.com")
          elif 'open chatgpt' in query:
                 webbrowser.open("chat.openai.com")
-         
+         elif 'open notion' in query:
+                webbrowser.open("notion.so")
          #Getting the current time
          elif 'the time' in query:
              strTime=datetime.datetime.now().strftime("%H:%M:%S")
@@ -207,6 +239,49 @@ if __name__ == "__main__":
          #Getting news     
          elif 'news' in query:
             get_news()
+
+         # Currency conversion (fiat and bitcoin)
+         elif 'convert' in query or 'currency' in query or 'bitcoin' in query:
+            speak("Sure — do you want to convert Bitcoin or regular currency?")
+            choice = takeCommand().lower()
+            if 'bitcoin' in choice or 'btc' in choice:
+                speak("How many bitcoins would you like to convert?")
+                amt_text = takeCommand()
+                amt = parse_amount(amt_text)
+                if amt is None:
+                    speak("I couldn't understand the amount. Please try again later.")
+                else:
+                    speak("Which currency should I convert Bitcoin to? Say the three-letter code like USD or INR.")
+                    currency = takeCommand()
+                    if not currency or currency.lower() == 'none':
+                        speak("No currency provided. Cancelling conversion.")
+                    else:
+                        currency_code = ''.join(currency.split()).upper()
+                        result = convert_bitcoin(amt, currency_code)
+                        print(result)
+                        speak(result)
+            else:
+                speak("How much would you like to convert? Say the amount.")
+                amt_text = takeCommand()
+                amt = parse_amount(amt_text)
+                if amt is None:
+                    speak("I couldn't understand the amount. Please try again later.")
+                else:
+                    speak("From which currency? Please say the three-letter currency code like USD or INR.")
+                    from_curr = takeCommand()
+                    if not from_curr or from_curr.lower() == 'none':
+                        speak("No source currency provided. Cancelling conversion.")
+                    else:
+                        from_code = ''.join(from_curr.split()).upper()
+                        speak("To which currency should I convert?")
+                        to_curr = takeCommand()
+                        if not to_curr or to_curr.lower() == 'none':
+                            speak("No target currency provided. Cancelling conversion.")
+                        else:
+                            to_code = ''.join(to_curr.split()).upper()
+                            result = convert_currency(amt, from_code, to_code)
+                            print(result)
+                            speak(result)
         
          #To get jokes or motivational quotes
          elif 'joke' in query:

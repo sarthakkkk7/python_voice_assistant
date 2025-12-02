@@ -24,7 +24,8 @@ You can choose between a **Male Assistant (Jarvis)** or a **Female Assistant (Fr
   - Github
   - LinkedIn
   - Google Classroom
-  - ChatGPT 
+  - ChatGPT
+  - Notion
 - ⏰ **Tells Current Time**
 - ⚙️ **Opens Applications** (like VS Code)
 - 🃏 **Tells Jokes & Motivational Quotes**

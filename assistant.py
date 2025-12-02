@@ -226,7 +226,7 @@ if __name__ == "__main__":
              speak(f"Master, the time is {strTime}")
 
          #Opening application
-         elif 'open vs code' in query:
+         elif 'open vs code' or 'launch vs code' or 'open vscode' in query:
              codepath="C:\\Users\\Sarthak\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
              os.startfile(codepath)
 

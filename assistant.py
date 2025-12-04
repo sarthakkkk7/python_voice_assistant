@@ -166,25 +166,22 @@ def wish_me():
      speak("I am Friday, your personal assistant. How can I help you today?")     
 
 def takeCommand():
-    # Takes i/p from user using microphone if available, otherwise falls back to text input
-    if not HAS_SPEECH_RECOGNITION:
-        print("SpeechRecognition not available — falling back to text input.")
-        return input("Type your command: ")
-
-    r = sr.Recognizer()
+    #Takes i/p from user using microphone
+    r=sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
-        r.pause_threshold = 1.2  # Adjusted pause threshold for better recognition
-        audio = r.listen(source)
+        r.pause_threshold= 1.2 # Adjusted pause threshold for better recognition
+        audio=r.listen(source)
 
     try:
         print("Recognizing...")
-        query = r.recognize_google(audio, language='en-in')
-        print(f"User said: {query}\n")
-    except Exception:
+        query=r.recognize_google(audio, language='en-in')
+        print(f"User said: {query}\n")   
+
+    except Exception as e:
         print("Sorry, I did not understand that. Please say it again.")
-        return "None"
-    return query
+        return "None"   
+    return query  
     
 if __name__ == "__main__":
     wish_me()
@@ -218,15 +215,14 @@ if __name__ == "__main__":
                 webbrowser.open("classroom.google.com")
          elif 'open chatgpt' in query:
                 webbrowser.open("chat.openai.com")
-         elif 'open notion' in query:
-                webbrowser.open("notion.so")
+         
          #Getting the current time
          elif 'the time' in query:
              strTime=datetime.datetime.now().strftime("%H:%M:%S")
              speak(f"Master, the time is {strTime}")
 
          #Opening application
-         elif 'open vs code' or 'launch vs code' or 'open vscode' in query:
+         elif 'open vs code' in query:
              codepath="C:\\Users\\Sarthak\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
              os.startfile(codepath)
 
